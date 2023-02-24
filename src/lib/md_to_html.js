@@ -8,17 +8,15 @@ function mdToHTML(mdStr) {
 }
 
 // reads md file and returns frontmatter as object and content as string 
-function readMDFile(path) {
-  let fileContent = fs.readFileSync(path, 'utf8');
-  
+function parseContent(content) {
   let mdStr;
   let yamlStr;
   // parse frontmatter and convert to object
-  if (fileContent.slice(0, 3) === "---") {
-    yamlStr = fileContent.split("---")[1];
-    mdStr = fileContent.split("---")[2];
+  if (content.slice(0, 3) === "---") {
+    yamlStr = content.split("---")[1];
+    mdStr = content.split("---")[2];
   } else {
-    mdStr = fileContent;
+    mdStr = content;
   }
   
   return {
@@ -27,4 +25,4 @@ function readMDFile(path) {
   }
 }
 
-export { mdToHTML, readMDFile }
+export { mdToHTML, parseContent }
