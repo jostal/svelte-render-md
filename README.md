@@ -1,38 +1,30 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+# svelte-render-md
+## Description
+A library that allows reading of yaml frontmatter from a .md file and rendering the md content as html.
+MD conversion done using Showdown and YAML parsing done using yaml-js.
+## Usage
+### Read YAML Frontmatter
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+import { readMDFile } from "svelte-render-md";
+let mdFile = readMDFile("myFile.md");
+let frontmatter = mdFile.frontmatter;
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
+### Render md as HTML 
+You can render any md string as html:
 ```
+<script>
+  import { RenderHTML } from "svelte-render-md";
+</script>
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+<RenderHTML mdString="# Test String\n This is to test" />
+```
+You can also render an md file as html:
+```
+<script>
+  import { RenderHTML, readMDFile } from "svelte-render-md";
+  let mdFile = readMDFile("myFile.md");
+  let mdStr = mdFile.content;
+ </script>
+ 
+ <RenderHTML mdString={mdStr} />
+```
