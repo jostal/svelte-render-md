@@ -1,10 +1,22 @@
 <script>
-  import RenderHtml from "$lib/RenderHTML.svelte";
-  import { readMDFile } from "$lib/md_to_html";
+	import { onMount } from 'svelte';
+	import RenderHtml from '$lib/RenderHTML.svelte';
+	import { parseContent } from '$lib/md_to_html.js';
 
-  let mdFile = readMDFile('./static/test.md');
-  let frontmatter = mdFile.frontmatter;
-  let mdStr = mdFile.content;
+	let data;
+	let mdStr;
+
+	onMount(async () => {
+		data = await readFile('test.md');
+		mdStr = parseContent(data).content;
+	});
+
+	async function readFile(filepath) {
+		let content = await fetch(filepath).then((res) => res.text());
+		return content;
+	}
 </script>
 
-<RenderHtml mdString={mdStr} />
+{#if mdStr}
+	<RenderHtml mdString={mdStr} />
+{/if}

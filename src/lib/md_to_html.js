@@ -14,8 +14,10 @@ function parseContent(content) {
   let yamlStr;
   // parse frontmatter and convert to object
   if (content.slice(0, 3) === "---") {
-    yamlStr = content.split("---")[1];
-    mdStr = content.split("---")[2];
+    let contentArr = content.split("---")
+    yamlStr = contentArr[1];
+    let mdArr = contentArr.slice(2)
+    mdStr = mdArr.join('---');
   } else {
     mdStr = content;
   }
