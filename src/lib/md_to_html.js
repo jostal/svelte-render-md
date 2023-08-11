@@ -2,7 +2,9 @@ import * as yaml from 'js-yaml'
 import * as showdown from 'showdown'
 
 function mdToHTML(mdStr) {
-  let converter = new showdown.Converter();
+  let converter = new showdown.Converter({
+    tables: true
+  });
   return converter.makeHtml(mdStr);;
 }
 
@@ -17,10 +19,10 @@ function parseContent(content) {
   } else {
     mdStr = content;
   }
-  
+
   return {
-    frontmatter: yaml.load(yamlStr), 
-    content: mdStr 
+    frontmatter: yaml.load(yamlStr),
+    content: mdStr
   }
 }
 
